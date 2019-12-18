@@ -64,7 +64,7 @@ router.get('/gifts/:id', (req, res, next) => {
     .then(gift => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, gift)
+      // requireOwnership(req, gift)
     
       res.status(200).json({ gift: gift.toObject() })
     })
@@ -77,10 +77,11 @@ router.get('/gifts/:id', (req, res, next) => {
 router.post('/gifts', (req, res, next) => {
   // set owner of new gift to be current user
   // req.body.gift.owner = req.user.id
-
+console.log("hello yo walaijsflkasdjf",req.body.gift)
   Gift.create(req.body.gift)
     // respond to succesful `create` with status 201 and JSON of new "gift"
     .then(gift => {
+      console.gift
       res.status(201).json({ gift: gift.toObject() })
     })
     // if an error occurs, pass it off to our error handler
@@ -99,6 +100,7 @@ router.patch('/gifts/:id', removeBlanks, (req, res, next) => {
   Gift.findById(req.params.id)
     .then(handle404)
     .then(gift => {
+      console.log("ana honaaaaaa",gift)
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       // requireOwnership(req, gift)
@@ -107,7 +109,7 @@ router.patch('/gifts/:id', removeBlanks, (req, res, next) => {
       return gift.update(req.body.gift)
     })
     // if that succeeded, return 204 and no JSON
-    .then(() => res.status(204))
+    .then(() => res.status(204).json())
     // if an error occurs, pass it to the handler
     .catch(next)
 })
@@ -119,7 +121,7 @@ router.delete('/gifts/:id', (req, res, next) => {
     .then(handle404)
     .then(gift => {
       // throw an error if current user doesn't own `gift`
-      requireOwnership(req, gift)
+      // requireOwnership(req, gift)
       // delete the gift ONLY IF the above didn't throw
       gift.remove()
     })
