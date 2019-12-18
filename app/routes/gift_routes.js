@@ -6,6 +6,7 @@ const passport = require('passport')
 // pull in Mongoose model for gifts
 const Gift = require('../models/gift')
 
+
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
 const customErrors = require('../../lib/custom_errors')
@@ -23,12 +24,12 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 // so that a token MUST be passed for that route to be available
 // it will also set `req.user`
 
-/****************** REINABLE IT AFTERWARDS *****************************
- ***********************************************************************
-const requireToken = passport.authenticate('bearer', { session: false })
-************************************************************************
-************************************************************************/
 
+/***************************************************************************/ 
+/***************************************************************************/ 
+// const requireToken = passport.authenticate('bearer', { session: false })
+/***************************************************************************/
+/***************************************************************************/ 
 
 
 // instantiate a router (mini app that only handles routes)
@@ -39,7 +40,9 @@ const router = express.Router()
 router.get('/gifts', (req, res, next) => {
   
   // Option 1 get user's gifts
-  Gift.find({owner: req.user.id})
+  
+  Gift.find()
+  // Gift.find({owner: req.user.id})
     .then(gifts => res.status(200).json({gifts: gifts}))
     .catch(next)
   
@@ -73,7 +76,7 @@ router.get('/gifts/:id', (req, res, next) => {
 // POST /gifts
 router.post('/gifts', (req, res, next) => {
   // set owner of new gift to be current user
-  req.body.gift.owner = req.user.id
+  // req.body.gift.owner = req.user.id
 
   Gift.create(req.body.gift)
     // respond to succesful `create` with status 201 and JSON of new "gift"
@@ -98,7 +101,7 @@ router.patch('/gifts/:id', removeBlanks, (req, res, next) => {
     .then(gift => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, gift)
+      // requireOwnership(req, gift)
 
       // pass the result of Mongoose's `.update` to the next `.then`
       return gift.update(req.body.gift)
@@ -124,6 +127,7 @@ router.delete('/gifts/:id', (req, res, next) => {
     .then(() => res.sendStatus(204))
     // if an error occurs, pass it to the handler
     .catch(next)
-})
+});
+
 
 module.exports = router

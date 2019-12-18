@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 
 // require route files
-const exampleRoutes = require('./app/routes/example_routes')
+const exampleRoutes = require('./app/routes/gift_routes')
 const userRoutes = require('./app/routes/user_routes')
 
 // require error handling middleware
@@ -25,8 +25,8 @@ const requestLogger = require('./lib/request_logger')
 const tokenOrBearer = require('./lib/token_or_bearer')
 
 // Define Ports
-const reactPort = 7165
-const expressPort = 3000
+const reactPort = 7168
+const expressPort = 3004
 
 // establish database connection
 mongoose.Promise = global.Promise

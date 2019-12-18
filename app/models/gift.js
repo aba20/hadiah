@@ -1,21 +1,25 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema({
+const giftSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  text: {
+  description: {
+    type: String,
+    required: true
+  },
+  image: {
     type: String,
     required: true
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
   }
 }, {
   timestamps: true
-})
+});
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Gift', giftSchema)
