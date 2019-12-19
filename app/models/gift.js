@@ -11,7 +11,7 @@ const giftSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true
+    // required: true
   },
   // owner: {
   //   type: mongoose.Schema.Types.ObjectId,

@@ -81,7 +81,7 @@ console.log("hello yo walaijsflkasdjf",req.body.gift)
   Gift.create(req.body.gift)
     // respond to succesful `create` with status 201 and JSON of new "gift"
     .then(gift => {
-      console.gift
+      console.log(gift)
       res.status(201).json({ gift: gift.toObject() })
     })
     // if an error occurs, pass it off to our error handler
